@@ -1,0 +1,12 @@
+// Sum of numbers from 1 to N using a loop
+func sum_to_n(n) {
+    let sum = 0;
+    let i = 1;
+    while (i <= n) {
+        sum = sum + i;
+        i = i + 1;
+    }
+    return sum;
+}
+
+print(sum_to_n(100));  // Output: 5050

@@ -1,0 +1,15 @@
+// Collatz conjecture sequence length
+func collatz_length(n) {
+    let count = 0;
+    while (n != 1) {
+        if (n % 2 == 0) {
+            n = n / 2;
+        } else {
+            n = 3 * n + 1;
+        }
+        count = count + 1;
+    }
+    return count;
+}
+
+print(collatz_length(27));   // Output: 111

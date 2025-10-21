@@ -1,0 +1,12 @@
+// Greatest Common Divisor using Euclidean algorithm
+func gcd(a, b) {
+    while (b != 0) {
+        let temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+print(gcd(48, 18));    // Output: 6
+print(gcd(100, 35));   // Output: 5

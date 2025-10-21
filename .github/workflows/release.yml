@@ -1,0 +1,128 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Generate changelog
+      id: changelog
+      run: |
+        # Get all commits since last tag
+        LAST_TAG=$(git describe --tags --abbrev=0 HEAD~1 2>/dev/null || echo "HEAD~10")
+        CHANGELOG=$(git log $LAST_TAG..HEAD --oneline)
+
+        # Store in output
+        echo "changelog<<EOF" >> $GITHUB_OUTPUT
+        echo "## Changes" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo "$CHANGELOG" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+
+    - name: Create Release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: |
+          # ${{ github.ref_name }}
+
+          ## ✨ Features
+          - Monaco Editor with Miru syntax highlighting
+          - URL sharing with code compression
+          - Error line highlighting
+          - Dark/Light theme toggle
+          - 10 example programs
+          - Responsive design
+
+          ## 📝 Changes
+          ${{ steps.changelog.outputs.changelog }}
+
+          ## 🚀 Live Demo
+          https://miruscript.vercel.app
+
+          ## 📚 Documentation
+          - [QuickStart Guide](https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/QuickStart.md)
+          - [Language Reference](https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/KEYWORDS.md)
+          - [Examples](https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/examples/Examples.md)
+          - [Web IDE Docs](https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/WEB_IMPLEMENTATION_SUMMARY.md)
+        draft: false
+        prerelease: false
+
+    - name: Post release summary
+      run: |
+        echo "### 🎉 Release Created" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Tag**: \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "**Commit**: \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "View release: [GitHub Releases](${{ github.server_url }}/${{ github.repository }}/releases/tag/${{ github.ref_name }})" >> $GITHUB_STEP_SUMMARY
+
+  build-release-artifacts:
+    runs-on: ubuntu-latest
+    needs: create-release
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential
+
+    - name: Install Emscripten
+      uses: mymindstorm/setup-emsdk@v14
+      with:
+        version: latest
+        actions-cache-folder: 'emsdk-cache'
+
+    - name: Build WASM compiler
+      run: |
+        mkdir -p web/public
+        cd build
+        emmake make -f emscripten.mk
+
+    - name: Install web dependencies
+      working-directory: ./web
+      run: npm ci
+
+    - name: Build web frontend
+      working-directory: ./web
+      run: npm run build
+
+    - name: Create release bundle
+      run: |
+        mkdir -p miruscript-${{ github.ref_name }}
+        cp -r web/dist/* miruscript-${{ github.ref_name }}/
+        cp -r web/public/* miruscript-${{ github.ref_name }}/
+        cp README.md miruscript-${{ github.ref_name }}/
+        cp QuickStart.md miruscript-${{ github.ref_name }}/
+        cp KEYWORDS.md miruscript-${{ github.ref_name }}/
+        cp LICENSE miruscript-${{ github.ref_name }}/
+        tar -czf miruscript-${{ github.ref_name }}.tar.gz miruscript-${{ github.ref_name }}/
+        zip -r miruscript-${{ github.ref_name }}.zip miruscript-${{ github.ref_name }}/
+
+    - name: Upload release artifacts
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          miruscript-${{ github.ref_name }}.tar.gz
+          miruscript-${{ github.ref_name }}.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

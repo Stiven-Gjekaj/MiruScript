@@ -1,0 +1,10 @@
+// Calculate power using recursion
+func power(base, exp) {
+    if (exp == 0) {
+        return 1;
+    }
+    return base * power(base, exp - 1);
+}
+
+print(power(2, 10));   // Output: 1024
+print(power(3, 4));    // Output: 81
