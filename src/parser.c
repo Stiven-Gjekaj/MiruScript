@@ -944,7 +944,7 @@ static ASTNode *parse_primary(Parser *parser) {
 
     if (check(parser, TOKEN_IDENTIFIER)) {
         Token token = advance(parser);
-        char *name = strndup(token.lexeme, token.length);
+        char *name = string_dup_len(token.lexeme, token.length);
         ASTNode *node = ast_create_identifier(name);
         node->line = line;
         free(name);

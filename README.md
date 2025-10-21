@@ -19,7 +19,6 @@ _Powered by a minimal toolchain: Lexer → Parser → AST → CodeGen → C_
 </p>
 
 <p align="center" style="font-weight: bold;">
-  <a href="https://miruscript.vercel.app">🌐 Try Online Demo</a> •
   <a href="#-quick-start">Quick Start</a> •
   <a href="#-features">Features</a> •
   <a href="#-examples">Examples</a> •
@@ -73,49 +72,6 @@ _Powered by a minimal toolchain: Lexer → Parser → AST → CodeGen → C_
 
 ---
 
-## 🌐 Online IDE
-
-**Try MiruScript in your browser without installation!**
-
-<table>
-<tr>
-<td align="center" width="50%">
-
-### 💻 Browser-Based IDE
-
-Write and run Miru programs directly in your browser with a professional VS Code-like editor, real-time compilation, and live execution.
-
-**✨ MVP Features:**
-- 📝 VS Code-like editor (Monaco) with Miru syntax highlighting
-- ⚡ Instant compilation to C
-- 🔧 Live generated C code viewer with syntax highlighting
-- 🎯 Error highlighting with line/column markers
-- 📚 10 example programs (one-click load)
-- 🔗 Share code via compressed URL
-- 🌙 Dark/Light theme toggle
-- ⌨️ Keyboard shortcuts (Ctrl+Enter to run)
-- 📱 Responsive design (desktop/tablet/mobile)
-- 💾 Auto-save to localStorage
-
-</td>
-<td align="center" width="50%">
-
-### 🚀 Quick Access
-
-<a href="https://miruscript.vercel.app"><img src="https://img.shields.io/badge/Launch_IDE-Ready-success?style=for-the-badge" alt="Launch IDE"/></a>
-
-No installation needed. Just start coding!
-
-**Powered by:**
-- WebAssembly (WASM)
-- React + Vite
-- Emscripten compiler
-
-</td>
-</tr>
-</table>
-
----
 
 ## 📝 Examples
 
@@ -179,11 +135,6 @@ Source, headers, examples, docs
 <h3>📝 Examples</h3>
 <p>10 complete programs<br/>with explanations</p>
 <a href="./examples/Examples.md"><b>→ Examples.md</b></a>
-</td>
-<td align="center" width="25%">
-<h3>🔧 Technical Docs</h3>
-<p>IDE implementation &<br/>CI/CD setup</p>
-<a href="./WEB_IMPLEMENTATION_SUMMARY.md"><b>→ Web Docs</b></a>
 </td>
 </tr>
 </table>
