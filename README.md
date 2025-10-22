@@ -72,7 +72,6 @@ _Powered by a minimal toolchain: Lexer → Parser → AST → CodeGen → C_
 
 ---
 
-
 ## 📝 Examples
 
 **See [examples/Examples.md](examples/Examples.md) for detailed explanations, complexity analysis, and learning path!**
@@ -84,36 +83,35 @@ _Powered by a minimal toolchain: Lexer → Parser → AST → CodeGen → C_
 <table>
 <tr>
 <td align="center" width="25%">
-<img src="https://img.shields.io/badge/Lines_of_Code-2,871-blue?style=for-the-badge" alt="LOC"/><br/>
+<img src="https://img.shields.io/badge/Lines_of_Code-2,232-blue?style=for-the-badge" alt="LOC"/><br/>
 <b>Total C Code</b><br/>
-2,288 src + 583 other
+Compiler core + runtime
 </td>
 <td align="center" width="25%">
-<img src="https://img.shields.io/badge/Files-32-green?style=for-the-badge" alt="Files"/><br/>
-<b>Project Files</b><br/>
-Source, headers, examples, docs
+<img src="https://img.shields.io/badge/Components-9-green?style=for-the-badge" alt="Components"/><br/>
+<b>Source Files</b><br/>
+Lexer, Parser, AST, CodeGen, Runtime
 </td>
 <td align="center" width="25%">
 <img src="https://img.shields.io/badge/Examples-10-orange?style=for-the-badge" alt="Examples"/><br/>
 <b>Example Programs</b><br/>
-116 lines of Miru code
+Demonstrating all language features
 </td>
 </tr>
 </table>
 
 ### Component Breakdown
 
-| Component    | Files  | Lines     | Description                            |
-| ------------ | ------ | --------- | -------------------------------------- |
-| **Lexer**    | 2      | 364       | Tokenization, 50 token types           |
-| **Parser**   | 2      | 971       | Recursive-descent, 9 precedence levels |
-| **AST**      | 2      | 420       | 15+ node types, printer                |
-| **CodeGen**  | 2      | 477       | C code emission, type dispatch         |
-| **Runtime**  | 2      | 56        | Print functions for all types          |
-| **Main**     | 1      | 50        | Compiler entry point                   |
-| **Tests**    | 3      | ~200      | Unit tests, runner scripts             |
-| **Examples** | 10     | 116       | Complete Miru programs                 |
-| **Total**    | **32** | **2,871** | Production-ready compiler              |
+| Component    | Files  | Lines | Description                            |
+| ------------ | ------ | ----- | -------------------------------------- |
+| **Lexer**    | 2      | 384   | Tokenization, 50 token types           |
+| **Parser**   | 2      | 836   | Recursive-descent, 9 precedence levels |
+| **AST**      | 2      | 510   | 17 node types, printer                 |
+| **CodeGen**  | 2      | 428   | C code emission, type dispatch         |
+| **Runtime**  | 2      | 27    | Print functions for all types          |
+| **Main**     | 1      | 47    | Compiler entry point                   |
+| **Examples** | 10     | ~116  | Complete Miru programs                 |
+| **Total**    | **21** | **2,348** | Minimal, production-ready compiler |
 
 ---
 
