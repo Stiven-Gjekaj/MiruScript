@@ -14,7 +14,7 @@ _Powered by a minimal toolchain: Lexer → Parser → AST → CodeGen → C_
 
 <p align="center">
   <img src="https://img.shields.io/badge/Status-Alpha-success?style=flat-square" alt="Status"/>
-  <img src="https://img.shields.io/badge/Version-0.1.0-blue?style=flat-square" alt="Version"/>
+  <img src="https://img.shields.io/badge/Version-0.2.0-blue?style=flat-square" alt="Version"/>
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License"/>
 </p>
 
